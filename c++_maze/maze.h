@@ -1,12 +1,4 @@
-/*
-Shawn Mace
-CSCI 3110-001
-Project #5
-Due Date October 31, 2018
-This is the header file.  If supplies header information for functions
-to recursive call a function to find the solution to a given maze,
-printing out the results and cell tested as it goes.
-*/
+
 
 #ifndef MAZE_H
 #define MAZE_H
