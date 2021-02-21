@@ -1,0 +1,67 @@
+%% The `=` is Prolog unification operator, it does not perform arithmetic evaluation.
+%% That means `8 = 4 + 4` is false in Prolog.
+%% Instead you can use `8 is 4 + 4` or `8 =:= 4 + 4`.
+%% The unification operator tries to unify intensional structure, and `8 = 4 + 4` is 
+%% trying to unify `'+'(4, 4)` with `8`.
+%% However `8 = 8` unifies!
+
+
+2.)
+
+myeven(0).
+myeven(X) :- X > 0, X1 is X - 1, myodd(X1).
+meven(X) :- X < 0, X1 is X + 1, myodd(X1).
+
+myodd(1).
+myodd(X) :- X > 0, X1 is X - 1, myeven(X1).
+myodd(X) :- X < 0, X1 is X + 1, myeven(X1).
+
+
+
+4.)
+myminlist([L|Ls], Min) :-
+    myminlist(Ls, L, Min).
+
+myminlist([], Min, Min).
+myminlist([L|Ls], Min0, Min) :-
+    Min1 is min(L, Min0),
+    myminlist(Ls, Min1, Min).
+
+
+5.)
+
+palindrome([]).
+palindrome([_]).
+palindrome(X) :-
+ append([Head|Tail], [Head], X),
+ palindrome(Tail).
+
+
+
+1.)
+
+mymember(X, [X|Xs]).
+mymember(X, [Y|Ys]) :-
+    mymember(X, Ys).
+
+
+3.)
+
+Currently, you have two rules:
+
+(1) The number of elements in the empty list is 0
+
+my_len([], 0).
+(2) The number of elements in the list [H|Lc] is N if the number of elements in the list Lc is M and N is M+1
+
+my_len([H|Lc], N) :- my_len(Lc, M), N is M+1.
+You're already armed with a predicate which is true if a number is even, and false if it is not: N is even if the remainder of N when divided by 2 is 0:
+
+even(N) :- N rem 2 =:= 0.
+Now you can piece it together. The number of even elements in an empty list is still zero. So you keep rule (1). Your rule (2) will need to change as it will need to check if the head of the list is even. You can do this with with two rules in Prolog which take care of the two different cases (the list head is even, or the list head is odd):
+
+(2a) The number of even elements in list [H|Lc] is N if H is even, and the number of even elements in list Lc is M, and N is M+1.
+
+(2b) The number of even elements in list [H|Lc] is N if H is not even (or H is odd), and the number of even elements in list Lc is N. [Notice that N doesn't change if H is odd.]
+
+I'll leave the rendering of these two rules into Prolog as an exercise. You can use the Prolog negation functor, \+ to test if a number is not even, by \+ even(N). Or you can define an odd(N) :- N rem 2 =:= 1. predicate to use for that case.
