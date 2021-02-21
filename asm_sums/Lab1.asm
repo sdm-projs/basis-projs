@@ -1,11 +1,3 @@
-; File name: Lab1.asm
-; Course name: CSCI3160
-; Author: Shawn Mace
-; Date: January 17, 2019
-; Read two integers from user and display the sum
-; input: two integers
-; output: sum of the two integers
-
 ; Assembler directives
 .586 				;accept instructions for 586
 .MODEL FLAT 		;generate code for flat memory
